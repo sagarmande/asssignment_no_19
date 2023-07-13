@@ -1,0 +1,44 @@
+def countSmaller(nums):
+    if len(nums) <= 1:
+        return [0] * len(nums)
+
+    counts = [0] * len(nums)
+    mergeSortAndCount(nums, 0, len(nums) - 1, counts)
+    return counts
+
+def mergeSortAndCount(nums, left, right, counts):
+    if left < right:
+        mid = (left + right) // 2
+        mergeSortAndCount(nums, left, mid, counts)
+        mergeSortAndCount(nums, mid + 1, right, counts)
+        mergeAndCount(nums, left, mid, right, counts)
+
+def mergeAndCount(nums, left, mid, right, counts):
+    sortedNums = [0] * (right - left + 1)
+    i = left
+    j = mid + 1
+    k = 0
+
+    while i <= mid and j <= right:
+        if nums[i] <= nums[j]:
+            counts[nums[i]] += j - mid - 1
+            sortedNums[k] = nums[i]
+            i += 1
+        else:
+            sortedNums[k] = nums[j]
+            j += 1
+        k += 1
+
+    while i <= mid:
+        counts[nums[i]] += j - mid - 1
+        sortedNums[k] = nums[i]
+        i += 1
+        k += 1
+
+    while j <= right:
+        sortedNums[k] = nums[j]
+        j += 1
+        k += 1
+
+    for m in range(left, right + 1):
+        nums[m] = sortedNums[m - left]
