@@ -1,0 +1,38 @@
+def sortArray(nums):
+    temp = [0] * len(nums)
+    mergeSort(nums, 0, len(nums) - 1, temp)
+    return nums
+
+def mergeSort(nums, start, end, temp):
+    if start < end:
+        mid = (start + end) // 2
+        mergeSort(nums, start, mid, temp)
+        mergeSort(nums, mid + 1, end, temp)
+        merge(nums, start, mid, end, temp)
+
+def merge(nums, start, mid, end, temp):
+    left = start
+    right = mid + 1
+    index = start
+
+    while left <= mid and right <= end:
+        if nums[left] <= nums[right]:
+            temp[index] = nums[left]
+            left += 1
+        else:
+            temp[index] = nums[right]
+            right += 1
+        index += 1
+
+    while left <= mid:
+        temp[index] = nums[left]
+        left += 1
+        index += 1
+
+    while right <= end:
+        temp[index] = nums[right]
+        right += 1
+        index += 1
+
+    for i in range(start, end + 1):
+        nums[i] = temp[i]
