@@ -1,0 +1,15 @@
+def pushZerosToEnd(nums):
+    left = 0
+    right = 0
+
+    while left < len(nums):
+        if nums[left] != 0:
+            nums[left], nums[right] = nums[right], nums[left]
+            right += 1
+        left += 1
+
+    return nums
+nums = [1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0]
+result = pushZerosToEnd(nums)
+print(result)
+[1, 9, 8, 4, 2, 7, 6, 0, 0, 0, 0]
