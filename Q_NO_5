@@ -1,0 +1,32 @@
+def rearrangeArray(arr):
+    positive = 0
+    negative = 0
+
+    while negative < len(arr):
+        if arr[negative] >= 0:
+            break
+        negative += 1
+
+    while positive < len(arr) and negative < len(arr):
+        if arr[positive] >= 0:
+            positive += 1
+        else:
+            temp = arr[positive]
+            for i in range(positive, negative, -1):
+                arr[i] = arr[i-1]
+            arr[negative] = temp
+            positive += 1
+            negative += 2
+
+    return arr
+arr1 = [1, 2, 3, -4, -1, 4]
+result1 = rearrangeArray(arr1)
+print(result1)
+
+arr2 = [-5, -2, 5, 2, 4, 7, 1, 8, 0, -8]
+result2 = rearrangeArray(arr2)
+print(result2)
+
+
+[-4, 1, -1, 2, 3, 4]
+[-5, 5, -2, 2, -8, 4, 7, 1, 8, 0]
